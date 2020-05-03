@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>查询所有</title>
+
+    <script type="text/javascript" th:src="@{/asserts/js/jquery.min.js}"></script>
+</head>
+<body>
+    <div>
+        <!--<button class="addBtn" >增加</button>-->
+        <a th:href="@{/book/one}">添加</a>
+        <table border="1" cellspacing="0" cellpadding="0">
+
+            <tr>
+                <th>编号</th>
+                <th>类型</th>
+                <th>图书名字</th>
+                <th>图书价格</th>
+                <th>发布时间</th>
+                <th>作者</th>
+                <th>发布公司</th>
+            </tr>
+            <tr th:each="book:${list}">
+                <td>[[${book.no}]]</td>
+                <td>[[${book.bookType.name}]]</td>
+                <td>[[${book.name}]]</td>
+                <td>[[${book.price}]]</td>
+                <td th:text="${#dates.format(book.pub_time,'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td>[[${book.outhor}]]</td>
+                <td>[[${book.pub_company}]]</td>
+                <td>
+                    <a th:href="@{/book/one/} + ${book.no}">修改</a> |
+                    <button id="deleteBtn" th:attr="del_uri=@{/book/delete/} + ${book.no}">删除</button>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <form id="deleteForm" method="post">
+        <input type="hidden" name="_method" value="delete"/>
+    </form>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('#deleteBtn').click(function () {
+                var uri = $(this).attr("del_uri");
+                $('#deleteForm').attr("action",uri).submit();
+                return false;
+            });
+
+        })
+       // window.onload=function (ev) {
+       //     var btn  = document.getElementById("#deleteBtn");
+       //     var delForm = document.getElementById("#deleteForm");
+       //     btn.onclick=function () {
+       //         var uri = btn.getAttribute("del_uri");
+       //         delForm.setProperty("action",uri).submit();
+       //         return false;
+       //     };
+       // }
+
+    </script>
+</body>
+</html>

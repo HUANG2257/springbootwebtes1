@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.youmo.huang.dao.BookMapper">
+
+
+    <resultMap id="baseBookResultMap" type="com.youmo.huang.bean.Book">
+        <id column="bno" property="no"/>
+        <result column="bname" property="name"/>
+        <result column="price" property="price"/>
+        <result column="pub_time" property="pub_time"/>
+        <result column="" property=""/>
+        <result column="outhor" property="outhor"/>
+        <result column="pub_company" property="pub_company"/>
+        <association property="bookType" javaType="com.youmo.huang.bean.BookType">
+            <id column="tno" property="no"/>
+            <result column="tname" property="name"/>
+        </association>
+
+    </resultMap>
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="no" parameterType="com.youmo.huang.bean.Book">
+        INSERT INTO book (
+        no,
+        type_no,
+        name,
+        price,
+        pub_time,
+        outhor,
+        pub_company
+    )
+    VALUES
+        (
+            #{no},
+            #{bookType.no},
+            #{name},
+            #{price},
+            #{pub_time},
+            #{outhor},
+            #{pub_company}
+        )
+
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM book where no=#{no}
+
+    </delete>
+
+    <update id="update" parameterType="com.youmo.huang.bean.Book">
+        UPDATE book
+        <set>
+            <if test="bookType != null">
+                type_no = #{bookType.no},
+            </if>
+            <if test="name !=null">
+                name = #{name},
+            </if>
+            <if test="price!=null">
+                price = #{price},
+            </if>
+            <if test="pub_time != null">
+                pub_time = #{pub_time},
+            </if>
+            <if test="outhor != null">
+                outhor = #{outhor},
+            </if>
+            <if test="pub_company != null">
+                pub_company = #{pub_company},
+            </if>
+
+        </set>
+        WHERE
+            no = #{no}
+    </update>
+
+    <select id="getList" resultMap="baseBookResultMap">
+        SELECT
+        b. NO bno,
+        t.no tno,
+        t. NAME tname,
+        b. NAME bname,
+        price,
+        pub_time,
+        outhor,
+        pub_company
+    FROM
+        book b
+    LEFT JOIN booktype t ON b.type_no = t.`no`
+    </select>
+
+    <select id="getOne" resultMap="baseBookResultMap">
+        SELECT
+        b. NO bno,
+        t.no tno,
+        t. NAME tname,
+        b. NAME bname,
+        price,
+        pub_time,
+        outhor,
+        pub_company
+    FROM
+        book b
+    LEFT JOIN booktype t ON b.type_no = t.`no`
+        WHERE
+        b.no = #{no}
+    </select>
+
+
+
+
+</mapper>

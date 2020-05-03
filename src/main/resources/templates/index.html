@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+    欢迎您: <h3 th:if="${session.user}!=null">[[${session.user.username}]]</h3><br/><br/><br/>
+    <a th:href="@{/book/list}">查询列表</a>
+
+</body>
+</html>

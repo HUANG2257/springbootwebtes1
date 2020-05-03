@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>添加书籍</title>
+</head>
+<body>
+
+    <form action="/book/saveOrUpdate" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="put" th:if="${book!=null}"/><br/>
+        <input type="text" name="no" placeholder="编号" th:value="${book!=null}?${book.no}"/><br/>
+        <input type="text" name="name" placeholder="书名" th:value="${book!=null}?${book.name}"/><br/>
+        <input type="text" name="price" placeholder="价格" th:value="${book!=null}?${book.price}"/><br/>
+        <input type="text" name="pub_time" placeholder="发布时间" th:value="${book!=null}?${#dates.format(book.pub_time,'yyyy-MM-dd HH:mm')}"/><br/>
+        <input type="text" name="outhor" placeholder="作者" th:value="${book!=null}?${book.outhor}"/><br/>
+        <input type="text" name="pub_company" placeholder="发布公司" th:value="${book!=null}?${book.pub_company}"/><br/>
+        <select name="bookType.no">
+            <option th:value="${bookType.no}" th:each="bookType:${bookTypeList}"
+                    th:selected="${book!=null}?${book.no == bookType.no}"
+                    th:text="${bookType.name}" ></option>
+        </select><br/>
+        <input type="file" name="pic" /><br/>
+        <input type="submit" th:value="${book!=null}?'修改':'添加'"/><br/>
+
+    </form>
+</body>
+</html>

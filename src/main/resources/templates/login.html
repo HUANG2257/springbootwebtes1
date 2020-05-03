@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎登陆</title>
+
+    <script type="text/javascript" th:src="@{/asserts/js/jquery.min.js}"></script>
+</head>
+<body>
+    <span style="color: red;" th:text="${errorMsg}" th:if="${not #strings.isEmpty(errorMsg)}"></span><br/>
+    <form action="/user/login" method="post" id="loginForm">
+        用户名：<input id="usern" type="text" name="username"/><br/>
+        密  码：<input type="text" name="password"/><br/>
+                <input type="submit" value="登陆"/>
+    </form>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#loginForm input").eq(0).blur(function () {
+                $.get("/user/username",{"username":$(this).val()},function (result) {
+                    if(!result){
+                        $("span").text("用户不存在");
+                        return;
+                    }
+                    $("span").text("");
+                    return;
+                })
+            });
+        })
+    </script>
+
+</body>
+</html>
