@@ -36,6 +36,8 @@ public class BookController{
 
     @PostMapping("/saveOrUpdate")
     public String save(Book book, HttpSession session, MultipartFile pic){
+        //测试git合并
+        System.out.println("测试合并测试！！！！！");
 
         //上传文件
         upLoad(pic);
