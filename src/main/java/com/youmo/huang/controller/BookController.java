@@ -39,6 +39,8 @@ public class BookController{
         //测试git合并
         System.out.println("测试合并测试！！！！！");
 
+        System.out.println("测试合并222");
+
         //上传文件
         upLoad(pic);
 
