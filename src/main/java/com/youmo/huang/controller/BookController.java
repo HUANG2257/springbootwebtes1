@@ -42,6 +42,8 @@ public class BookController{
         System.out.println("测试合并222");
         System.out.println("测试合并33");
 
+        System.out.println("测试合并三！！！！");
+        
         //上传文件
         upLoad(pic);
 
