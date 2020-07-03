@@ -51,6 +51,7 @@ public class BookController{
     @DeleteMapping("/delete/{no}")
     public String  delete(@PathVariable("no")Long no){
         bookService.delete(no);
+
         return "redirect:/book/list";
     }
 
@@ -73,6 +74,7 @@ public class BookController{
     public String addPage(Map<String, Object> map){
         List<BookType> list = bookTypeService.getList();
         map.put("bookTypeList",list);
+        System.out.println("测试合并");
         return "book/add";
     }
 
